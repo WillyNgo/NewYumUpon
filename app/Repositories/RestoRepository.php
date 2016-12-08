@@ -48,4 +48,9 @@ class RestoRepository
         return $restos;
     }
 
+    public function getAllRestos()
+    {
+        
+    }
+
 }

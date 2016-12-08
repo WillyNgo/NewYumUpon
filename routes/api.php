@@ -19,6 +19,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('apiv1/getrestosnear/', 'ApiController@getRestosNear');
 Route::get('apiv1/getrestoreviews/', 'ApiController@getRestoReviews');
+Route::get('apiv1/getallrestos/', 'ApiController@getAllRestos');
 
 Route::post('apiv1/addreview', 'ApiController@addreview');
 Route::post('apiv1/addresto', 'ApiController@addresto');
