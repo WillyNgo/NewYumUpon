@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth; //add a use statement to import
+use Auth;
+use App\Resto;//add a use statement to import
 
 class ApiController extends Controller
 {
@@ -16,9 +17,9 @@ class ApiController extends Controller
         return response()->json($restos, 200);
     }
 
-    public function restoreviews(Request $request)
+    public function restoreviews(Request $request, $id)
     {
-        $reviews = $this->review->getReviewsForId($restoid);
+        $reviews = $this->review->getReviewsForId($id);
 
         return response()->json($reviews, 200);
     }
@@ -42,19 +43,19 @@ class ApiController extends Controller
 
             $review->save();
 
-            /*$dataArray = [
+            $dataArray = [
                 'user' => $userid,
                 'resto' => $review->resto,
                 'title' => $review->title,
                 'rating' => $review->rating,
                 'content' => $review->content,
-            ];*/
+            ];
 
-            $dataArray = [
+            /*$dataArray = [
                 'status' => 'OK',
                 'message' => 'Review successfully added!',
                 'userid' => $userid,
-            ];
+            ];*/
 
             return response()->json($dataArray, 200);
 
@@ -64,7 +65,9 @@ class ApiController extends Controller
     public function addresto(Request $request)
     {
         // grab credentials from the request
-        $credentials = $request->only('email', 'password');  //Only Some Of The Request Input
+        $credentials = $request->only('email', 'password');
+        var_dump($request["email"]);
+        var_dump($request["password"]);//Only Some Of The Request Input
         $valid = Auth::once($credentials); //logs in for this time only, no session or cookies
         if (!$valid)
             return response()->json(['error' => 'invalid_credentials'], 401);
@@ -78,16 +81,13 @@ class ApiController extends Controller
             $resto->pricing = $request->pricing;
             $resto->addedBy = $userid;
             $resto->address = $request->address;
-
-            $mylocation = app('App\Http\Controllers\GeoController')->GetGeocodingSearchResults($request->address,$request);
-
             $resto->city = $request->city;
             $resto->postalcode = $request->postalcode;
-            $resto->longitude = $mylocation[2];
-            $resto->latitude = $mylocation[1];
+            $resto->longitude = $request->longtitude;
+            $resto->latitude = $request->latitude;
             $resto->save();
 
-            /*$dataArray = [
+            $dataArray = [
                 'addedby' => $userid,
                 'name' => $resto->name,
                 'genre' => $resto->genre,
@@ -97,13 +97,13 @@ class ApiController extends Controller
                 'postalcode' => $resto->postalcode,
                 'latitude' => $resto->latitude,
                 'longitude' => $resto->longitude,
-            ];*/
+            ];
 
-            $dataArray = [
+            /*$dataArray = [
                 'status' => 'OK',
                 'message' => 'Restaurant successfully added!',
                 'userid' => $userid,
-            ];
+            ];*/
 
             return response()->json($dataArray, 200);
 

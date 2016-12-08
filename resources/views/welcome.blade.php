@@ -84,18 +84,6 @@
                   <img src="/img/logo_egg.png" alt="Logo" >
                 </div>
 
-                @if(Route::has('login'))
-                    <div class="links">
-                        <div id="searchFormContainer">
-                            <form action="{{ url('search') }}" method="get">
-                                <input type="text" name="keyword" placeholder="Search a resto..." value="">
-                                <input type="submit" value="Look for it">
-                            </form>
-                        </div>
-                        <!--<a href="{{ url('/search') }}">Find a Resto</a>-->
-                        <!--<a href="https://laravel-news.com">Reviews</a>-->
-                    </div>
-                @endif
                 <!-- Geolocation if user does not share location -->
                 <form action="/geo" method="POST" class="form-horizontal" id="hiddenForm" style="visibility: hidden">
                 {{ csrf_field() }}

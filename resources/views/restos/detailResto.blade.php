@@ -9,25 +9,22 @@
                     <div class="panel-heading"><h1 style="text-align: center">{{$resto->name}}</h1></div>
 
                     <div class="panel-body">
-                        <h3 style="text-align: center" >Type of cuisine</h3>
-                        <h4  style="text-align: center" >{{$resto->genre}}</h4>
+                        <h3 style="text-align: center" >Genre</h3>
+                        <h5  style="text-align: center" >{{$resto->genre}}</h5>
 
                         <hr>
                         <h3 style="text-align: center" >Pricing</h3>
-                        <h4  style="text-align: center" >{{$resto->pricing}}</h4>
+                        <h5  style="text-align: center" >{{$resto->pricing}}</h5>
 
                         <hr>
                         <h3 style="text-align: center" >Location</h3>
-                        <h4  style="text-align: center" >{{$resto->civic}}</h4>
-                        <h4  style="text-align: center" >{{$resto->street}}</h4>
-                        <h4  style="text-align: center" >{{$resto->city}}</h4>
-                        <h4  style="text-align: center" >{{$resto->postalcode}}</h4>
+                        <h5  style="text-align: center" >{{$resto->civic}}</h5>
+                        <h5  style="text-align: center" >{{$resto->street}}</h5>
+                        <h5  style="text-align: center" >{{$resto->city}}</h5>
+                        <h5  style="text-align: center" >{{$resto->postalcode}}</h5>
 
                         <hr>
-                        <h3 style="text-align: center" >Owner</h3>
-
-                        <hr>
-                        <h3 style="text-align: center" >Reviews</h3>
+                        <h2 style="text-align: center" >Reviews</h2>
                         @if($reviews!=null)
                             <table class="table table-striped task-table">
 
