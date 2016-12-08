@@ -30,4 +30,22 @@ class RestoRepository
         return $restos;
     }
 
+    public function get10RestosNear($latitude, $longitude, $radius = 50){
+
+        $restos = Resto::select('restos.*')
+            ->selectRaw('( 6371 * acos( cos( radians(?) ) *
+                           cos( radians( latitude ) )
+                           * cos( radians( longitude ) - radians(?))
+                           + sin( radians(?) ) *
+                           sin( radians(latitude ) ) )
+                         ) AS distance', [$latitude, $longitude, $latitude])
+            ->whereRaw("'distance' < ? ", [$radius])
+            ->orderBy('distance')
+            ->limit(10)
+            ->get();
+
+
+        return $restos;
+    }
+
 }

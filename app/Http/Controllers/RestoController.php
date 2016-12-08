@@ -61,8 +61,6 @@ class RestoController extends Controller
      */
     public function updateResto(Request $request, $id)
     {
-
-        echo "<script>alert('got in form updating')</script>";
         $resto = Resto::find($id);
         return view('restos.updateResto', ['resto' => $resto]);
     }

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class ReviewRepository
 {
+    /**
+     * Gets all reviews written by a specified a resto id
+     *
+     * @param $id
+     * @return mixed
+     */
     public function getAllForId($id)
     {
        return DB::table('users')
@@ -23,6 +29,15 @@ class ReviewRepository
             ->paginate(5);
 
 
+    }
+
+    public function getReviewsForId($id)
+    {
+        return DB::table('users')
+            ->join('reviews','users.id','=','reviews.user')
+            ->select('reviews.title','users.name','reviews.content','reviews.rating')
+            ->where('resto','=',$id)
+            ->orderby('reviews.created_at','desc');
     }
 
     public function getReviews()

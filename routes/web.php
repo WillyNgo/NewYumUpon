@@ -33,6 +33,5 @@ Route::put('/resto/{restoid}', 'RestoController@update');
 
 Route::get('/reviews', 'ReviewController@index');
 Route::post('/review', 'ReviewController@store');
-Route::delete('/review/{review}', 'ReviewController@destroy');
 
 Route::post('/geo','GeoController@index');
