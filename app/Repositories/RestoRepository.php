@@ -44,7 +44,7 @@ class RestoRepository
             ->limit(10)
             ->get();
 
-
+        echo "<script>alert('".count($restos)."')</script>";
         return $restos;
     }
 
