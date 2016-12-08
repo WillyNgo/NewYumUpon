@@ -32,11 +32,6 @@ class ApiController extends Controller
         return response()->json($reviews, 200);
     }
 
-    public function getAllRestos(Request $request)
-    {
-        $restos = $this->resto->get
-    }
-
     /**
      * This method will add a review for a restaurant
      * @param Request $request
