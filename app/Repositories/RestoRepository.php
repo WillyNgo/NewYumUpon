@@ -50,7 +50,7 @@ class RestoRepository
 
     public function getAllRestos()
     {
-        
+
     }
 
 }

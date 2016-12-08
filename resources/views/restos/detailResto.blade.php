@@ -9,23 +9,21 @@
                     <div class="panel-heading"><h1 style="text-align: center">{{$resto->name}}</h1></div>
 
                     <div class="panel-body">
-                        <h3 style="text-align: center" >Genre</h3>
-                        <h5  style="text-align: center" >{{$resto->genre}}</h5>
+                        <h2 style="text-align: center" >Type of cuisine</h2>
+                        <h4  style="text-align: center" >{{$resto->genre}}</h4>
 
                         <hr>
-                        <h3 style="text-align: center" >Pricing</h3>
-                        <h5  style="text-align: center" >{{$resto->pricing}}</h5>
+                        <h2 style="text-align: center" >Pricing</h2>
+                        <h4  style="text-align: center" >{{$resto->pricing}}</h4>
 
                         <hr>
-                        <h3 style="text-align: center" >Location</h3>
-                        <h5  style="text-align: center" >{{$resto->civic}}</h5>
-                        <h5  style="text-align: center" >{{$resto->street}}</h5>
-                        <h5  style="text-align: center" >{{$resto->city}}</h5>
-                        <h5  style="text-align: center" >{{$resto->postalcode}}</h5>
+                        <h2 style="text-align: center" >Location</h2>
+                        <h4  style="text-align: center" >{{$resto->address}}</h4>
+                        <h4  style="text-align: center" >{{$resto->city}}</h4>
+                        <h4  style="text-align: center" >{{$resto->postalcode}}</h4>
 
-                        <hr>
                         <h2 style="text-align: center" >Reviews</h2>
-                        @if($reviews!=null)
+                        @if(count($reviews)>0)
                             <table class="table table-striped task-table">
 
                                 <!-- Table Headings -->
@@ -58,69 +56,75 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                        @else
+                            <h3 style="text-align: center">No reviews!</h3>
                         @endif
 
-                        <button id="submitButton">Add Review</button>
-                        <form style="display: none" id="reviewing" class="form-horizontal" role="form" method="POST" action="{{ url('/review') }}">
-                            {{ csrf_field() }}
+                        @if(Auth::check())
+                            <button id="submitButton">Add Review</button>
+                            <form style="display: none" id="reviewing" class="form-horizontal" role="form" method="POST" action="{{ url('/review') }}">
+                                {{ csrf_field() }}
 
-                            <h2  style="text-align: center"> Review Submission Form</h2>
-                            <input hidden name="restoid" value="{{$resto->restoid}}">
+                                <h2  style="text-align: center"> Review Submission Form</h2>
+                                <input hidden name="restoid" value="{{$resto->restoid}}">
 
-                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                <label for="title" class="col-md-4 control-label">Title</label>
+                                <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                    <label for="title" class="col-md-4 control-label">Title</label>
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
+                                    <div class="col-md-6">
+                                        <input id="name" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
 
-                                    @if ($errors->has('title'))
-                                        <span class="help-block">
+                                        @if ($errors->has('title'))
+                                            <span class="help-block">
                                         <strong>{{ $errors->first('title') }}</strong>
                                         </span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Content</label>
+                                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                                    <label for="name" class="col-md-4 control-label">Content</label>
 
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
 
-                                    <textarea style="resize: vertical" name="content" class="form-control" form="reviewing"></textarea>
-                                    @if ($errors->has('content'))
-                                        <span class="help-block">
+                                        <textarea style="resize: vertical" name="content" class="form-control" form="reviewing"></textarea>
+                                        @if ($errors->has('content'))
+                                            <span class="help-block">
                                         <strong>{{ $errors->first('content') }}</strong>
                                         </span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
-                            <label for="rating" class="col-md-4 control-label">Rating</label>
-                            <div class="col-md-6">
-                                <select name="rating">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                                <label for="rating" class="col-md-4 control-label">Rating</label>
+                                <div class="col-md-6">
+                                    <select name="rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
 
-                                @if ($errors->has('rating'))
-                                    <span class="help-block">
+                                    @if ($errors->has('rating'))
+                                        <span class="help-block">
                                     <strong>{{ $errors->first('rating') }}</strong>
                                 </span>
-                                @endif
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary" >
-                                        Post Review!
-                                    </button>
+                                    @endif
                                 </div>
-                            </div>
-                        </form>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <button type="submit" class="btn btn-primary" >
+                                            Post Review!
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        @else
+                            <h4 style="text-align: center">Please log in if you want to review this restaurant!</h4>
+                        @endif
                         <div> {{ $reviews->links() }} </div>
 
                     </div>

@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(session()->has('postal'))
+        return redirect()->action('HomeController@index');
+    else
+        return view('welcome',['errPostal'=>null]);
 });
+
 
 Auth::routes();
 

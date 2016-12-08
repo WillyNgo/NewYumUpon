@@ -18,14 +18,14 @@
                             <th>Number of reviews</th>
                             <th>Average rating</th>
                             </thead>
-
+                        @if(count($restos)>0)
                             <!-- Table Body -->
-                            <tbody>
-                            @foreach($restos as $resto)
+                                <tbody>
+                                @foreach($restos as $resto)
                                     <tr>
                                         <!-- Task Name -->
                                         <td class="table-text">
-                                                <div><a href="{{ url('/detailResto/'.$resto->restoid) }}">{{$resto->name}}</a></div>
+                                            <div><a href="{{ url('/detailResto/'.$resto->restoid) }}">{{$resto->name}}</a></div>
                                         </td>
                                         <td class="table-text">
                                             <div>{{$resto->genre}}</div>
@@ -50,29 +50,37 @@
                                                 @foreach($reviews as $review)
                                                     @if($review->resto == $resto->restoid)
                                                         <?php
-                                                            $sum += $review->rating;
-                                                            $num++;
-                                                            ?>
+                                                        $sum += $review->rating;
+                                                        $num++;
+                                                        ?>
                                                     @endif
                                                 @endforeach
                                                 <?php
 
-                                                    if($sum == 0)
-                                                        $avg = 0;
-                                                    else
-                                                        $avg = (int) $sum / $num;
+                                                if($sum == 0)
+                                                    $avg = 0;
+                                                else
+                                                    $avg = (int) $sum / $num;
                                                 ?>
                                                 {{number_format($avg, 1)}}
                                             </div>
                                         </td>
                                     </tr>
 
-                            @endforeach
-                            </tbody>
+                                @endforeach
+
+                                </tbody>
+
                         </table>
+
                         <div> {{ $restos->links() }} </div>
+
+                        @else
+                            <h3>No restaurants matching your search term!</h3>
+                        @endif
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

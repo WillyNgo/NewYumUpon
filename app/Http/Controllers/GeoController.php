@@ -20,16 +20,25 @@ class GeoController extends Controller
 
             $request->session()->put('geoResult',$geoResult);
         }
+        elseif(session()->has('postal'))
+        {
+            return redirect()->action('HomeController@index');
+        }
         else{
             $postal = $request->input('postal');
             $geoResult = $this->GetGeocodingSearchResults($postal,$request);
-            $request->session()->put('geoResult',$geoResult);
+
         }
 
-        if($geoResult[0] == 'OK')
+        if($geoResult[0] == 'OK') {
+            $request->session()->put('postal', $postal);
+            $request->session()->put('geoResult', $geoResult);
             return redirect()->action('HomeController@index');
-        else
-            return view('welcome');
+        }
+        else {
+            $request->session()->remove('geoResult');
+            return view('welcome',['errPostal'=> 'Invalid postal code entered!']);
+        }
 
     }
 
@@ -37,13 +46,17 @@ class GeoController extends Controller
 
     public function GetGeocodingSearchResults($address,Request $request) {
         $address = urlencode($address); //Url encode since it was provided by user
-        $url = "http://maps.google.com/maps/api/geocode/xml?address={$address}&sensor=false";
+        if($address!=null) {
+            $url = "http://maps.google.com/maps/api/geocode/xml?address={$address}&sensor=false";
 
-        // Retrieve the XML file
-        $results = file_get_contents($url);
-        $xml = new \DOMDocument();//backslash to indicate global namespace
-        $xml->loadXML($results);
-        $check = $xml->getElementsByTagName('status')->item(0)->nodeValue;
+            // Retrieve the XML file
+            $results = file_get_contents($url);
+            $xml = new \DOMDocument();//backslash to indicate global namespace
+            $xml->loadXML($results);
+            $check = $xml->getElementsByTagName('status')->item(0)->nodeValue;
+        }else{
+            $check = 'FAIL';
+        }
         if($check == 'OK') {
             $latitude = $xml->getElementsByTagName('lat')->item(0)->nodeValue;
             $longitude = $xml->getElementsByTagName('lng')->item(0)->nodeValue;
