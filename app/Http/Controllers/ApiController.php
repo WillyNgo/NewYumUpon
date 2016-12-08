@@ -24,6 +24,11 @@ class ApiController extends Controller
         return response()->json($reviews, 200);
     }
 
+    /**
+     * This method will add a review for a restaurant
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addreview(Request $request)
     {
         // grab credentials from the request
@@ -62,6 +67,11 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * Add a restaurant from request
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addresto(Request $request)
     {
         // grab credentials from the request
