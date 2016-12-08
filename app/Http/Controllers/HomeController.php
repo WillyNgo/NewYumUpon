@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\RestoRepository;
 use App\Repositories\ReviewRepository;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -35,7 +36,6 @@ class HomeController extends Controller
         echo "<script>alert('".$geoResult[1]."')</script>";
         echo "<script>alert('".$geoResult[2]."')</script>";
         echo "<script>alert('".count($restos)."')</script>";
-
 
         return view('home',['restos' => $restos, 'reviews' => $reviews]);
     }
