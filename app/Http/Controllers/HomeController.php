@@ -29,7 +29,6 @@ class HomeController extends Controller
     {
         $geoResult = $request->session()->get('geoResult');
 
-        //Get number of reviews for this specific resto
         $restos = $this->resto->getRestosNear($geoResult[1],$geoResult[2]);
         $reviews = $this->review->getReviews();
 

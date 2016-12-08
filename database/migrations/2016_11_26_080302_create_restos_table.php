@@ -22,8 +22,8 @@ class CreateRestosTable extends Migration
             $table->string('address');
             $table->string('city')->nullable();
             $table->string('postalcode')->nullable();
-            $table->decimal('longitude', 10, 6)->nullable();
-            $table->decimal('latitude', 10, 6)->nullable();
+            $table->decimal('longitude', 10, 6);
+            $table->decimal('latitude', 10, 6);
             $table->timestamps();
         });
     }

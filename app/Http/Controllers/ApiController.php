@@ -4,23 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Resto;//add a use statement to import
+use App\Resto;
+use App\Review;
+use App\Repositories\RestoRepository;
+use App\Repositories\ReviewRepository;
 
 class ApiController extends Controller
 {
 
-    public function restosnear(Request $request)
+    public function __construct(RestoRepository $resto, ReviewRepository $review)
     {
-        $geoResult = $request->session()->get('geoResult');
-        $restos = $this->resto->get10RestosNear($geoResult[1], $geoResult[2]);
+        $this->resto = $resto;
+        $this->review = $review;
+    }
 
+    public function getRestosNear(Request $request)
+    {
+        //$geoResult = $request->session()->get('geoResult');
+        //echo "Hello";
+        $restos = $this->resto->get10RestosNear($request->latitude, $request->longitude);
         return response()->json($restos, 200);
     }
 
-    public function restoreviews(Request $request, $id)
+    public function getRestoReviews(Request $request)
     {
-        $reviews = $this->review->getReviewsForId($id);
-
+        $reviews = $this->review->getReviewsForId($request->restoid);
         return response()->json($reviews, 200);
     }
 
@@ -47,20 +55,19 @@ class ApiController extends Controller
             $review->user = $userid;
 
             $review->save();
-
+            /*
             $dataArray = [
                 'user' => $userid,
                 'resto' => $review->resto,
                 'title' => $review->title,
                 'rating' => $review->rating,
                 'content' => $review->content,
-            ];
-
-            /*$dataArray = [
+            ];*/
+            $dataArray = [
                 'status' => 'OK',
                 'message' => 'Review successfully added!',
                 'userid' => $userid,
-            ];*/
+            ];
 
             return response()->json($dataArray, 200);
 
@@ -96,24 +103,24 @@ class ApiController extends Controller
             $resto->longitude = $request->longtitude;
             $resto->latitude = $request->latitude;
             $resto->save();
-
+            /*
+                        $dataArray = [
+                            'addedby' => $userid,
+                            'name' => $resto->name,
+                            'genre' => $resto->genre,
+                            'pricing' => $resto->pricing,
+                            'address' => $resto->address,
+                            'city' => $resto->city,
+                            'postalcode' => $resto->postalcode,
+                            'litude' => $resto->latitude,
+                            'longitude' => $resto->longitude,
+                        ];
+            */
             $dataArray = [
-                'addedby' => $userid,
-                'name' => $resto->name,
-                'genre' => $resto->genre,
-                'pricing' => $resto->pricing,
-                'address' => $resto->address,
-                'city' => $resto->city,
-                'postalcode' => $resto->postalcode,
-                'latitude' => $resto->latitude,
-                'longitude' => $resto->longitude,
-            ];
-
-            /*$dataArray = [
                 'status' => 'OK',
                 'message' => 'Restaurant successfully added!',
                 'userid' => $userid,
-            ];*/
+            ];
 
             return response()->json($dataArray, 200);
 

@@ -17,8 +17,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('apiv1/restosnear', 'ApiController@restosnear');
-Route::get('apiv1/reviews/{restoid}', 'ApiController@restoreviews');
+Route::get('apiv1/getrestosnear/', 'ApiController@getRestosNear');
+Route::get('apiv1/getrestoreviews/', 'ApiController@getRestoReviews');
 
-Route::post('apiv1/review', 'ApiController@addreview');
+Route::post('apiv1/addreview', 'ApiController@addreview');
 Route::post('apiv1/addresto', 'ApiController@addresto');
