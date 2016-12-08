@@ -11,7 +11,7 @@ class Resto extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'genre', 'pricing','civic', 'street', 'city', 'postalcode',];
+    protected $fillable = ['name', 'genre', 'pricing', 'address', 'city', 'postalcode',];
     protected $primaryKey = 'restoid';
     
     /**

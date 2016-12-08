@@ -100,7 +100,7 @@ class ApiController extends Controller
             $resto->address = $request->address;
             $resto->city = $request->city;
             $resto->postalcode = $request->postalcode;
-            $resto->longitude = $request->longtitude;
+            $resto->longitude = $request->longitude;
             $resto->latitude = $request->latitude;
             $resto->save();
             /*
