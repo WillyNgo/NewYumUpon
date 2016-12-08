@@ -22,6 +22,10 @@ class ApiController extends Controller
     {
         //$geoResult = $request->session()->get('geoResult');
         //echo "Hello";
+
+        echo "<script>alert('".$request->latitude."')</script>";
+        echo "<script>alert('".$request->longitude."')</script>";
+
         $restos = $this->resto->get10RestosNear($request->latitude, $request->longitude);
         return response()->json($restos, 200);
     }
