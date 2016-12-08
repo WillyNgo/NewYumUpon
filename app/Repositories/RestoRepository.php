@@ -25,7 +25,7 @@ class RestoRepository
             ->orderBy('distance')
             ->limit(20)
             ->get();
-
+        echo "<script>alert('".count($restos)."INSINDE RESTO REPO 20 RESTO')</script>";
 
         return $restos;
     }
@@ -44,7 +44,7 @@ class RestoRepository
             ->limit(10)
             ->get();
 
-        echo "<script>alert('".count($restos)."')</script>";
+        echo "<script>alert('".count($restos)." INSINDE RESTP REPO 10 NEAR RESTO')</script>";
         return $restos;
     }
 
