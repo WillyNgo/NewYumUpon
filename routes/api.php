@@ -17,7 +17,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('apiv1/getrestosnear/', 'ApiController@getRestosNear');
+Route::get('apiv1/getrestosnear/{latitude},{longitude}', 'ApiController@getRestosNear');
 Route::get('apiv1/getrestoreviews/', 'ApiController@getRestoReviews');
 Route::get('apiv1/getallrestos/', 'ApiController@getAllRestos');
 
