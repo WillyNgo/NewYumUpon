@@ -26,7 +26,7 @@ class ApiController extends Controller
         echo "<script>alert('".$request->latitude."')</script>";
         echo "<script>alert('".$request->longitude."')</script>";
 
-        $restos = $this->resto->get10RestosNear($request->latitude, $request->longitude);
+        $restos = $this->resto->getRestosNear($request->latitude, $request->longitude);
         return response()->json($restos, 200);
     }
 
