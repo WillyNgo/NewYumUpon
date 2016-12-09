@@ -25,9 +25,15 @@ class ApiController extends Controller
         $restos = $this->resto->getRestosNear($lat, $long);
         return response()->json($restos, 200);    }
 
-    public function getRestoReviews(Request $request)
+    /**
+     * Gets all reviews associated with a specified restaurant id
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRestoReviews(Request $request, $id)
     {
-        $reviews = $this->review->getReviewsForId($request->restoid);
+        $reviews = $this->review->getReviewsForId($id);
         return response()->json($reviews, 200);
     }
 
