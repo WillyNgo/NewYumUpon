@@ -39,7 +39,6 @@ class SearchController extends Controller
             ->paginate(20);
 
         $reviews = DB::table('reviews')->get();
-        echo "<script>alert('".count($restos)."INSINDE search')</script>";
         return view('search.index', ['restos' => $restos, 'reviews' => $reviews]);
     }
 }

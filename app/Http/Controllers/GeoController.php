@@ -19,7 +19,6 @@ class GeoController extends Controller
             $geoResult = ['OK',$latitude,$longitude];
 
             $request->session()->put('geoResult',$geoResult);
-            echo "<script>alert('".$geoResult[0]."')</script>";
         }
         elseif(session()->has('postal'))
         {
@@ -34,7 +33,6 @@ class GeoController extends Controller
         if($geoResult[0] == 'OK') {
             $request->session()->put('postal', $postal);
             $request->session()->put('geoResult', $geoResult);
-            echo "<script>alert('".$geoResult[0]."GEOCONTROLLER')</script>";
             return redirect()->action('HomeController@index');
         }
         else {

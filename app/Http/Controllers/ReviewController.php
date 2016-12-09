@@ -32,12 +32,6 @@ class ReviewController extends Controller
             'content' => 'required|max:255',
         ]);
 
-        echo "<script>alert('".$request->id."')</script>";
-        echo "<script>alert('".$request->title."')</script>";
-        echo "<script>alert('".$request->restoid."')</script>";
-        echo "<script>alert('".$request->rating."')</script>";
-        echo "<script>alert('".$request->content."')</script>";
-
         $userid = Auth::id();
         $review = new Review();
         $review->resto = $request->restoid;

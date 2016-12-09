@@ -33,10 +33,6 @@ class HomeController extends Controller
         $restos = $this->resto->getRestosNear($geoResult[1],$geoResult[2]);
         $reviews = $this->review->getReviews();
 
-        echo "<script>alert('".$geoResult[1]."')</script>";
-        echo "<script>alert('".$geoResult[2]."')</script>";
-        echo "<script>alert('".count($restos)."')</script>";
-
         return view('home',['restos' => $restos, 'reviews' => $reviews]);
     }
 }
