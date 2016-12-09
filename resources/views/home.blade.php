@@ -54,6 +54,7 @@
                                             ?>
                                         </div>
                                     </td>
+                                    <!-- Displays total number of reviews -->
                                     <td class="table-text">
                                         <div>
                                             <?php $num = 0; ?>
@@ -65,9 +66,9 @@
                                             {{$num}}
                                         </div>
                                     </td>
+                                    <!-- Calculates avg of ratings from all reviews associated to this resto -->
                                     <td class="table-text">
                                         <div>
-                                            <!-- Calculates avg of ratings from all reviews associated to this resto -->
                                             <?php $sum = 0; $avg = 0; $num = 0; ?>
                                             @foreach($reviews as $review)
                                                 @if($review->resto == $resto->restoid)
@@ -78,7 +79,6 @@
                                                 @endif
                                             @endforeach
                                             <?php
-
                                             if($sum == 0)
                                                 $avg = 0;
                                             else
@@ -87,6 +87,7 @@
                                             {{number_format($avg, 1)}}
                                         </div>
                                     </td>
+
                                 </tr>
 
                             @endforeach

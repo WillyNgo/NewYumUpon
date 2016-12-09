@@ -13,6 +13,14 @@ use DB;
 class RestoRepository
 {
 
+    /**
+     * Gets all restaurant near the specified latitude and longitude within a radius
+     *
+     * @param $latitude
+     * @param $longitude
+     * @param int $radius
+     * @return mixed
+     */
     public function getRestosNear($latitude, $longitude, $radius = 50){
 
         $distances = Resto::select('restos.*')
@@ -33,7 +41,14 @@ class RestoRepository
         return $restos;
     }
 
-
+    /**
+     * Not sure if to use
+     *
+     * @param $latitude
+     * @param $longitude
+     * @param int $radius
+     * @return mixed
+     */
     public function get10RestosNear($latitude, $longitude, $radius = 50){
 
         $restos = Resto::select('restos.*')

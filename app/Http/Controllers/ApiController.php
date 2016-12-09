@@ -18,6 +18,13 @@ class ApiController extends Controller
         $this->review = $review;
     }
 
+    /**
+     * Gets all restaurant near the specified latitude and longitude
+     * @param Request $request
+     * @param $lat
+     * @param $long
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getRestosNear(Request $request, $lat, $long)
     {
         //$geoResult = $request->session()->get('geoResult');

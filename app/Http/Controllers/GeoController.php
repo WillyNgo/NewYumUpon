@@ -43,7 +43,14 @@ class GeoController extends Controller
     }
 
 
-
+    /**
+     * Gets the latitude and longitude from the specified address. The address can be either a physical address (civic number and street name)
+     * or simply the postal code
+     *
+     * @param $address
+     * @param Request $request
+     * @return array
+     */
     public function GetGeocodingSearchResults($address,Request $request) {
         $address = urlencode($address); //Url encode since it was provided by user
         if($address!=null) {

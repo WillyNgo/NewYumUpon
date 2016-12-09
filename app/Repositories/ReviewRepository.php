@@ -38,7 +38,7 @@ class ReviewRepository
     {
         return DB::table('users')
             ->join('reviews','users.id','=','reviews.user')
-            ->select('reviews.title','users.name','reviews.content','reviews.rating')
+            ->select('reviews.title','users.email','reviews.content','reviews.rating')
             ->where('resto','=',$id)
             ->orderby('reviews.created_at','desc')
             ->get();
