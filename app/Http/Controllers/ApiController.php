@@ -29,9 +29,10 @@ class ApiController extends Controller
     public function getRestosNear(Request $request, $lat, $long)
     {
         //$geoResult = $request->session()->get('geoResult');
-        
+
         $restos = $this->resto->getRestosNear($lat, $long);
-        return response()->json($restos, 200);    }
+        return response()->json($restos, 200);
+    }
 
     /**
      * Gets all reviews associated with a specified restaurant id
@@ -98,12 +99,13 @@ class ApiController extends Controller
         $credentials = $request->only('email', 'password');
         var_dump($request["email"]);
         var_dump($request["password"]);//Only Some Of The Request Input
-        
+
         $valid = Auth::once($credentials); //logs in for this time only, no session or cookies
         if (!$valid)
             return response()->json(['error' => 'invalid_credentials'], 401);
-        else if (!$this->checkIfRestoAlreadyExists($request->name, $request->address)){
-            //interact with model
+        if (Resto::where('name', '=', $request->name)->count() > 0 && Resto::where('postalcode', '=', $request->postalcode)->count() > 0) { // Check for duplicate
+            return response(400);
+        } else {    //interact with model
             $userid = Auth::id();
             $resto = new Resto;
             $resto->name = $request->name;
@@ -142,8 +144,8 @@ class ApiController extends Controller
     public function checkIfRestoAlreadyExists($restoname, $restoaddress)
     {
         echo "<script>alert('IN CHECKING.')</script>";
-        $restos = DB::table('restos')->where('name', 'LIKE', '%'.$restoname.'%')
-            ->orWhere('address', 'LIKE', '%'.$restoaddress.'%')
+        $restos = DB::table('restos')->where('name', 'LIKE', '%' . $restoname . '%')
+            ->orWhere('address', 'LIKE', '%' . $restoaddress . '%')
             ->get();
 
         return (!empty($restos));
