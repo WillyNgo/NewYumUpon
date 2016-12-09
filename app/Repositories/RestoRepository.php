@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Resto;
 use Illuminate\Database\Eloquent\Collection;
+use DB;
 
 /**
  * Created by PhpStorm.
@@ -14,21 +15,23 @@ class RestoRepository
 
     public function getRestosNear($latitude, $longitude, $radius = 50){
 
-        $restos = Resto::select('restos.*')
+        $distances = Resto::select('restos.*')
             ->selectRaw('( 6371 * acos( cos( radians(?) ) *
-                           cos( radians( latitude ) )
-                           * cos( radians( longitude ) - radians(?))
-                           + sin( radians(?) ) *
-                           sin( radians(latitude ) ) )
-                         ) AS distance', [$latitude, $longitude, $latitude])
-            ->whereRaw("'distance' < ? ", [$radius])
+            cos( radians( latitude ) )
+            * cos( radians( longitude ) - radians(?))
+            + sin( radians(?) ) *
+            sin( radians(latitude ) ) )
+          ) AS distance', [$latitude, $longitude, $latitude]);
+
+        $restos = DB::table( DB::raw("({$distances->toSql()}) as restodistance") )
+            ->mergeBindings($distances->getQuery())
+            ->whereRaw("distance < ? ", [$radius])
             ->orderBy('distance')
-            ->limit(20)
             ->get();
-        echo "<script>alert('".count($restos)."INSINDE RESTO REPO 20 RESTO')</script>";
 
         return $restos;
     }
+
 
     public function get10RestosNear($latitude, $longitude, $radius = 50){
 
