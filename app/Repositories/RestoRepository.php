@@ -27,6 +27,7 @@ class RestoRepository
             ->mergeBindings($distances->getQuery())
             ->whereRaw("distance < ? ", [$radius])
             ->orderBy('distance')
+            ->limit(10)
             ->get();
 
         return $restos;
