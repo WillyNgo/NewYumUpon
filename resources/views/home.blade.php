@@ -31,7 +31,28 @@
                                         <div>{{$resto->genre}}</div>
                                     </td>
                                     <td class="table-text">
-                                        <div>{{$resto->pricing}}</div>
+                                        <div>
+                                            <!-- Displays appropriate number of $ for pricing range -->
+                                            <?php
+                                            $range = $resto->pricing;
+                                            switch ($range){
+                                                case "1":
+                                                    echo "$";
+                                                    break;
+                                                case "2":
+                                                    echo "$$";
+                                                    break;
+                                                case "3":
+                                                    echo "$$$";
+                                                    break;
+                                                case "4":
+                                                    echo "$$$$";
+                                                    break;
+                                                default:
+                                                    echo "Not available";
+                                            }
+                                            ?>
+                                        </div>
                                     </td>
                                     <td class="table-text">
                                         <div>
@@ -46,6 +67,7 @@
                                     </td>
                                     <td class="table-text">
                                         <div>
+                                            <!-- Calculates avg of ratings from all reviews associated to this resto -->
                                             <?php $sum = 0; $avg = 0; $num = 0; ?>
                                             @foreach($reviews as $review)
                                                 @if($review->resto == $resto->restoid)

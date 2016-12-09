@@ -31,7 +31,28 @@
                                         <div>{{$resto->genre}}</div>
                                     </td>
                                     <td class="table-text">
-                                        <div>{{$resto->pricing}}</div>
+                                        <div>
+                                            <!-- Displays appropriate number of $ for pricing range -->
+                                            <?php
+                                            $range = $resto->pricing;
+                                            switch ($range){
+                                                case "1":
+                                                    echo "$";
+                                                    break;
+                                                case "2":
+                                                    echo "$$";
+                                                    break;
+                                                case "3":
+                                                    echo "$$$";
+                                                    break;
+                                                case "4":
+                                                    echo "$$$$";
+                                                    break;
+                                                default:
+                                                    echo "Not available";
+                                            }
+                                            ?>
+                                        </div>
                                     </td><td class="table-text">
                                         <div>
                                             <?php $num = 0; ?>

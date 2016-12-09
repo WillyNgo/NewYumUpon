@@ -17,7 +17,7 @@ class CreateRestosTable extends Migration
             $table->increments('restoid');
             $table->string('name');           
             $table->string('genre');
-            $table->string('pricing');
+            $table->integer('pricing');
             $table->integer('addedBy')->nullable();
             $table->string('address');
             $table->string('city')->nullable();

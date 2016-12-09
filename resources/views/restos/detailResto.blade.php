@@ -14,7 +14,28 @@
 
                         <hr>
                         <h2 style="text-align: center" >Pricing</h2>
-                        <h4  style="text-align: center" >{{$resto->pricing}}</h4>
+                        <h4  style="text-align: center" >
+                            <!-- Displays appropriate number of $ for pricing range -->
+                            <?php
+                            $range = $resto->pricing;
+                            switch ($range){
+                                case "1":
+                                    echo "$";
+                                    break;
+                                case "2":
+                                    echo "$$";
+                                    break;
+                                case "3":
+                                    echo "$$$";
+                                    break;
+                                case "4":
+                                    echo "$$$$";
+                                    break;
+                                default:
+                                    echo "Not available";
+                            }
+                            ?>
+                        </h4>
 
                         <hr>
                         <h2 style="text-align: center" >Location</h2>

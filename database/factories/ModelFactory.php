@@ -18,7 +18,7 @@ $factory->define(App\Resto::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'genre' => $faker->word,
-        'pricing' => $faker->word,
+        'pricing' => $faker->numberBetween(1, 4),
         'address' => $faker->streetAddress,
         'city'=> $faker->city,
         'postalcode' => $faker->postcode,
@@ -35,7 +35,7 @@ $factory->define(App\Review::class, function (Faker\Generator $faker) {
         'title' => $faker->title,
         'content' => $faker->text,
         'user' => $faker->numberBetween(1,50),
-        'resto' => $faker->numberBetween(52,100),
+        'resto' => $faker->numberBetween(1,50),
         'rating' => $faker->numberBetween(1,5)
     ];
 });

@@ -32,7 +32,6 @@ class RestoController extends Controller
         $restos = DB::table('restos')->where('addedBy', '=', Auth::id())
             ->paginate(10);
         $reviews = $this->review->getReviews();
-
         return view('restos.index', ['restos' => $restos, 'reviews' => $reviews]);
     }
 
@@ -87,7 +86,7 @@ class RestoController extends Controller
             'postalcode' => 'max:6|min:6|regex:/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] ?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i',
             'city' => 'nullable|regex:/^[A-Za-z]*-? ?[A-Za-z]*$/',
             'genre' => 'required|regex:/^[A-Za-z]*-? ?[A-Za-z]*$/',
-            'pricing' => 'min:1|max:4|regex:/^\$*$/',
+            'pricing' => 'required',
             ]);
         $userid = Auth::id();
         $resto = new Resto;
@@ -122,7 +121,7 @@ class RestoController extends Controller
             'postalcode' => 'max:6|min:6|regex:/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] ?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i',
             'city' => 'nullable|regex:/^[A-Za-z]*-? ?[A-Za-z]*$/',
             'genre' => 'required|regex:/^[A-Za-z]*-? ?[A-Za-z]*$/',
-            'pricing' => 'min:1|max:4|regex:/^\$*$/',
+            'pricing' => 'required',
         ]);
         $restoToUpdate = Resto::find($id);
 
