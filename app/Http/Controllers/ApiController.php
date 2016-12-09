@@ -21,14 +21,9 @@ class ApiController extends Controller
     public function getRestosNear(Request $request, $lat, $long)
     {
         //$geoResult = $request->session()->get('geoResult');
-        //echo "Hello";
-
-        echo "<script>alert('".$request->latitude."')</script>";
-        echo "<script>alert('".$request->longitude."')</script>";
-
+        
         $restos = $this->resto->getRestosNear($lat, $long);
-        return response()->json($restos, 200);
-    }
+        return response()->json($restos, 200);    }
 
     public function getRestoReviews(Request $request)
     {
