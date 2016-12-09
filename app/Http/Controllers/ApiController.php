@@ -8,6 +8,7 @@ use App\Resto;
 use App\Review;
 use App\Repositories\RestoRepository;
 use App\Repositories\ReviewRepository;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -97,14 +98,14 @@ class ApiController extends Controller
         $credentials = $request->only('email', 'password');
         var_dump($request["email"]);
         var_dump($request["password"]);//Only Some Of The Request Input
+        
         $valid = Auth::once($credentials); //logs in for this time only, no session or cookies
         if (!$valid)
             return response()->json(['error' => 'invalid_credentials'], 401);
-        else {
+        else if (!$this->checkIfRestoAlreadyExists($request->name, $request->address)){
             //interact with model
             $userid = Auth::id();
             $resto = new Resto;
-
             $resto->name = $request->name;
             $resto->genre = $request->genre;
             $resto->pricing = $request->pricing;
@@ -135,7 +136,16 @@ class ApiController extends Controller
             ];
 
             return response()->json($dataArray, 200);
-
         }
+    }
+
+    public function checkIfRestoAlreadyExists($restoname, $restoaddress)
+    {
+        echo "<script>alert('IN CHECKING.')</script>";
+        $restos = DB::table('restos')->where('name', 'LIKE', '%'.$restoname.'%')
+            ->orWhere('address', 'LIKE', '%'.$restoaddress.'%')
+            ->get();
+
+        return (!empty($restos));
     }
 }

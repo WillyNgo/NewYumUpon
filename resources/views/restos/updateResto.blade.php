@@ -24,6 +24,7 @@
                                 </div>
                             </div>
 
+                            <!-- Address -->
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
 
                                 <label for="address" class="col-md-4 control-label">Address</label>
@@ -39,6 +40,7 @@
                                 </div>
                             </div>
 
+                            <!-- Postal code -->
                             <div class="form-group{{ $errors->has('postalcode') ? ' has-error' : '' }}">
                                 <label for="postalcode" class="col-md-4 control-label">Postal Code</label>
 
@@ -53,6 +55,7 @@
                                 </div>
                             </div>
 
+                            <!-- City -->
                             <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                 <label for="city" class="col-md-4 control-label">City (Optional)</label>
 
@@ -105,6 +108,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Update Resto
                                     </button>
+                                    <!-- Cancel button: goes back to index page (nearby restos) -->
                                     <button onclick="window.location='{{ url("/restos") }}'" type="button" class="btn btn-primary">
                                         Cancel
                                     </button>

@@ -69,6 +69,7 @@ class RestoController extends Controller
      */
     public function addResto(Request $request)
     {
+        echo "<script>alert('Going to adding')</script>";
         return view('restos.addResto');
     }
     /**
@@ -77,17 +78,17 @@ class RestoController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
-
-
-        $this->validate($request,[
+    public function store(Request $request)
+    {
+        $this->validate($request, [
             'name' => 'required|max:255',
             'address' => 'required',
             'postalcode' => 'max:6|min:6|regex:/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] ?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i',
             'city' => 'nullable|regex:/^[A-Za-z]*-? ?[A-Za-z]*$/',
             'genre' => 'required|regex:/^[A-Za-z]*-? ?[A-Za-z]*$/',
             'pricing' => 'required',
-            ]);
+        ]);
+
         $userid = Auth::id();
         $resto = new Resto;
         $resto->name = $request->name;
@@ -96,13 +97,13 @@ class RestoController extends Controller
         $resto->addedBy = $userid;
         $resto->address = $request->address;
 
-        $mylocation = app('App\Http\Controllers\GeoController')->GetGeocodingSearchResults($request->address,$request);
+        $mylocation = app('App\Http\Controllers\GeoController')->GetGeocodingSearchResults($request->address, $request);
 
         $resto->city = $request->city;
         $resto->postalcode = $request->postalcode;
         $resto->longitude = $mylocation[2];
         $resto->latitude = $mylocation[1];
-        $resto->save();
+            $resto->save();
 
 
         return redirect('/restos');
@@ -134,5 +135,20 @@ class RestoController extends Controller
         $restoToUpdate->save();
         
         return redirect('/restos');
+    }
+
+    /**
+     * Check if a restaurant already exists in the database, returns true if there is. False otherwise
+     * @param $restoname
+     * @param $restoaddress
+     */
+    public function checkIfRestoAlreadyExists($restoname, $restoaddress)
+    {
+        echo "<script>alert('IN CHECKING.')</script>";
+        $restos = DB::table('restos')->where('name', 'LIKE', '%'.$restoname.'%')
+            ->orWhere('address', 'LIKE', '%'.$restoaddress.'%')
+            ->get();
+
+        return (!empty($restos));
     }
 }

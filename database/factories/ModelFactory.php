@@ -24,7 +24,7 @@ $factory->define(App\Resto::class, function (Faker\Generator $faker) {
         'postalcode' => $faker->postcode,
         'longitude' => $faker->longitude,
         'latitude' => $faker->latitude,
-        'addedBy' => $faker->randomNumber()
+        'addedBy' => $faker->numberBetween(1, 50)
     ];
 });
 
