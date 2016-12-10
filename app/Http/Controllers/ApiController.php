@@ -30,7 +30,7 @@ class ApiController extends Controller
     {
         //$geoResult = $request->session()->get('geoResult');
 
-        $restos = $this->resto->getRestosNear($lat, $long);
+        $restos = $this->resto->get10RestosNear($lat, $long);
         return response()->json($restos, 200);
     }
 
@@ -69,14 +69,7 @@ class ApiController extends Controller
             $review->user = $userid;
 
             $review->save();
-            /*
-            $dataArray = [
-                'user' => $userid,
-                'resto' => $review->resto,
-                'title' => $review->title,
-                'rating' => $review->rating,
-                'content' => $review->content,
-            ];*/
+
             $dataArray = [
                 'status' => 'OK',
                 'message' => 'Review successfully added!',
@@ -118,19 +111,7 @@ class ApiController extends Controller
             $resto->longitude = $request->longitude;
             $resto->latitude = $request->latitude;
             $resto->save();
-            /*
-                        $dataArray = [
-                            'addedby' => $userid,
-                            'name' => $resto->name,
-                            'genre' => $resto->genre,
-                            'pricing' => $resto->pricing,
-                            'address' => $resto->address,
-                            'city' => $resto->city,
-                            'postalcode' => $resto->postalcode,
-                            'litude' => $resto->latitude,
-                            'longitude' => $resto->longitude,
-                        ];
-            */
+
             $dataArray = [
                 'status' => 'OK',
                 'message' => 'Restaurant successfully added!',

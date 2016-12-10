@@ -65,7 +65,7 @@ class RestoController extends Controller
     }
 
     /**
-     *
+     * Returns a form for user to add a new restaurant
      */
     public function addResto(Request $request)
     {
@@ -110,8 +110,11 @@ class RestoController extends Controller
 
 
     /**
-     * Updates restaurant in database
+     * Updates a restaurant in the database
+     *
      * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {
@@ -134,20 +137,5 @@ class RestoController extends Controller
         $restoToUpdate->save();
         
         return redirect('/restos');
-    }
-
-    /**
-     * Check if a restaurant already exists in the database, returns true if there is. False otherwise
-     * @param $restoname
-     * @param $restoaddress
-     */
-    public function checkIfRestoAlreadyExists($restoname, $restoaddress)
-    {
-        echo "<script>alert('IN CHECKING.')</script>";
-        $restos = DB::table('restos')->where('name', 'LIKE', '%'.$restoname.'%')
-            ->orWhere('address', 'LIKE', '%'.$restoaddress.'%')
-            ->get();
-
-        return (!empty($restos));
     }
 }

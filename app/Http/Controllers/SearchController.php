@@ -24,7 +24,7 @@ class SearchController extends Controller
     }
 
     /**
-     * Returns view with all of the search results.
+     * Returns view with all of the search results. Paginates for 20 results
      *
      * @param  Request  $request
      * @return Response

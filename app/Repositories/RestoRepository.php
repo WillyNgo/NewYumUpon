@@ -35,14 +35,14 @@ class RestoRepository
             ->mergeBindings($distances->getQuery())
             ->whereRaw("distance < ? ", [$radius])
             ->orderBy('distance')
-            ->limit(10)
+            ->limit(20)
             ->get();
 
         return $restos;
     }
 
     /**
-     * Not sure if to use
+     * Gets 10 restaurants nearest - For android users
      *
      * @param $latitude
      * @param $longitude
@@ -63,7 +63,6 @@ class RestoRepository
             ->limit(10)
             ->get();
 
-        echo "<script>alert('".count($restos)." INSINDE RESTP REPO 10 NEAR RESTO')</script>";
         return $restos;
     }
 

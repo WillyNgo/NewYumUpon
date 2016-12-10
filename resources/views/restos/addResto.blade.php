@@ -23,7 +23,7 @@
                                     @endif
                                 </div>
                             </div>
-
+                             <!-- Address -->
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
 
                                 <label for="address" class="col-md-4 control-label">Address</label>
@@ -39,6 +39,7 @@
                                 </div>
                             </div>
 
+                            <!-- Postal Code -->
                             <div class="form-group{{ $errors->has('postalcode') ? ' has-error' : '' }}">
                                 <label for="postalcode" class="col-md-4 control-label">Postal Code</label>
 
@@ -53,6 +54,7 @@
                                 </div>
                             </div>
 
+                            <!-- City -->
                             <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                 <label for="city" class="col-md-4 control-label">City (Optional)</label>
 
@@ -67,6 +69,7 @@
                                 </div>
                             </div>
 
+                            <!-- Genre -->
                             <div class="form-group{{ $errors->has('genre') ? ' has-error' : '' }}">
                                 <label for="genre" class="col-md-4 control-label">Genre</label>
 
@@ -81,6 +84,7 @@
                                 </div>
                             </div>
 
+                            <!-- Pricing -->
                             <div class="form-group{{ $errors->has('pricing') ? ' has-error' : '' }}">
                                 <label for="pricing" class="col-md-4 control-label">Pricing</label>
 
