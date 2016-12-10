@@ -140,14 +140,4 @@ class ApiController extends Controller
             return response()->json($dataArray, 200);
         }
     }
-
-    public function checkIfRestoAlreadyExists($restoname, $restoaddress)
-    {
-        echo "<script>alert('IN CHECKING.')</script>";
-        $restos = DB::table('restos')->where('name', 'LIKE', '%' . $restoname . '%')
-            ->orWhere('address', 'LIKE', '%' . $restoaddress . '%')
-            ->get();
-
-        return (!empty($restos));
-    }
 }

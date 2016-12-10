@@ -69,7 +69,6 @@ class RestoController extends Controller
      */
     public function addResto(Request $request)
     {
-        echo "<script>alert('Going to adding')</script>";
         return view('restos.addResto');
     }
     /**
